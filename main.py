@@ -5,13 +5,53 @@ import schedule
 import sys
 import subprocess
 import datetime
-# from selenium import webdriver
-# from selenium.webdriver.edge.options import Options
-# from selenium.webdriver.edge.service import Service
-# from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from selenium import webdriver
+from selenium.webdriver.edge.options import Options
+from selenium.webdriver.edge.service import Service
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 game_aumid = 'Innersloth.AmongUs_fw5x688tam7rm!Game'
 game_proc_name = 'Among Us.exe'
+
+
+def openSearch():
+    # search_url = f"https://www.bing.com/search?q={uuid.uuid4()}&qs=SS&pq=pink&sk=LS1&sc=10-4&FORM=QBRE&sp=2&ghc=1&lq=0"
+
+    r = RandomSentence()
+    search_url = f"https://www.bing.com/search?q={r.sentence()}&qs=SS&pq=pink&sk=LS1&sc=10-4&FORM=QBRE&sp=2&ghc=1&lq=0"
+    webbrowser.open(search_url)
+
+    # # 新建第二个窗口
+    # driver.execute_script("window.open('');")
+    # # 切换到第二个窗口
+    # driver.switch_to.window(driver.window_handles[1])
+    # # 在第二个窗口中打开网页
+    # driver.get(search_url)
+
+
+# # ----------------------------------------test----------------------------------------
+# # 设置Selenium使用Edge浏览器
+# options = Options()
+# options.use_chromium = True
+# # 这里设置了以User Data结尾的配置文件路径
+# options.add_argument(
+#     "user-data-dir=C:\\Users\\fwzy_\\AppData\\Local\\Microsoft\\Edge\\User Data")
+# # 指定特定的配置文件夹
+# options.add_argument("profile-directory=Profile 1")
+# options.binary_location = r"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+
+# # 启动Edge浏览器
+# driverEdge = webdriver.Edge(
+#     options=options, executable_path="EdgeDriver\\msedgedriver.exe")
+# # driverEdge = webdriver.Edge(service=Service(
+# #     EdgeChromiumDriverManager().install()), options=options)
+
+# openSearch(driverEdge)
+# time.sleep(1000)
+# openSearch(driverEdge)
+# time.sleep(5000)
+# driverEdge.quit()
+# # --------------------------------------test end--------------------------------------
 
 
 def daily(bigCD: bool):
@@ -23,17 +63,15 @@ def daily(bigCD: bool):
     # # 设置Selenium使用Edge浏览器
     # options = Options()
     # options.use_chromium = True
-    # edge = webdriver.Edge(service=Service(EdgeChromiumDriverManager().install()), options=options)
+    # driverEdge = webdriver.Edge(service=Service(
+    #     EdgeChromiumDriverManager().install()), options=options)
 
     if (not bigCD):
         # for Normal CD
         print("\n强国时间到 - 普通模式")
         interval = 10
         for i in range(32):
-            r = RandomSentence()
-            # search_url = f"https://www.bing.com/search?q={uuid.uuid4()}&qs=SS&pq=pink&sk=LS1&sc=10-4&FORM=QBRE&sp=2&ghc=1&lq=0"
-            search_url = f"https://www.bing.com/search?q={r.sentence()}&qs=SS&pq=pink&sk=LS1&sc=10-4&FORM=QBRE&sp=2&ghc=1&lq=0"
-            webbrowser.open(search_url)
+            openSearch(driverEdge)
             print(f"已强国{i+1}次")
             time.sleep(interval)
     else:
@@ -45,13 +83,13 @@ def daily(bigCD: bool):
         count = 4
         for i in range(roundcount):
             for j in range(count):
-                r = RandomSentence()
-                # search_url = f"https://www.bing.com/search?q={uuid.uuid4()}&qs=SS&pq=pink&sk=LS1&sc=10-4&FORM=QBRE&sp=2&ghc=1&lq=0"
-                search_url = f"https://www.bing.com/search?q={r.sentence()}&qs=SS&pq=pink&sk=LS1&sc=10-4&FORM=QBRE&sp=2&ghc=1&lq=0"
-                webbrowser.open(search_url)
+                openSearch(driverEdge)
                 print(f"第{i}轮，本轮已强国{j+1}次，共{i*count+j+1}次")
                 time.sleep(interval)
             time.sleep(roundinterval)
+
+    # # 关闭所有搜索窗
+    # driverEdge.quit()
 
     # 计算启动XGP PC游戏的时长
     end_time = datetime.datetime.now()
